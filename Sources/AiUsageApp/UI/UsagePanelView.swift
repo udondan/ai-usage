@@ -227,11 +227,19 @@ struct UsagePanelView: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             case .failed:
-                Text(snapshot.errorDescription ?? environment.localizer.text(.fetchFailed))
+                Text(localizedErrorDescription(for: snapshot))
                     .font(.footnote)
                     .foregroundStyle(.red)
             }
         }
+    }
+
+    private func localizedErrorDescription(for snapshot: ProviderSnapshot) -> String {
+        guard let errorDescription = snapshot.errorDescription else {
+            return environment.localizer.text(.fetchFailed)
+        }
+
+        return environment.localizer.errorDescription(errorDescription)
     }
 
     private func missingValueText(for kind: UsageMetricKind) -> String {

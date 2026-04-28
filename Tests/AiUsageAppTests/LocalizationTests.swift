@@ -39,4 +39,13 @@ struct LocalizationTests {
         #expect(polish.claudeMenuBarMetricLabel(.weekly) == "Użycie tygodniowe")
         #expect(polish.claudeMenuBarMetricLabel(.fiveHour) == "Użycie 5-godzinne")
     }
+
+    @Test
+    func knownSystemErrorsUseSelectedLanguage() {
+        let english = Localizer(language: .englishUS)
+        let polish = Localizer(language: .polish)
+
+        #expect(english.errorDescription("The Internet connection appears to be offline.") == "The internet connection appears to be offline.")
+        #expect(polish.errorDescription("The Internet connection appears to be offline.") == "Wygląda na to, że połączenie z internetem jest offline.")
+    }
 }

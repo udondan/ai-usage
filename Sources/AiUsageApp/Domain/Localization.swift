@@ -109,6 +109,7 @@ enum L10nKey: String {
     case signOut
     case noGitHubCopilotSessionFound
     case noCodexSessionFound
+    case internetConnectionOffline
 }
 
 struct Localizer {
@@ -129,6 +130,15 @@ struct Localizer {
 
     func formatted(_ key: L10nKey, _ arguments: CVarArg...) -> String {
         String(format: text(key), locale: language.locale, arguments: arguments)
+    }
+
+    func errorDescription(_ description: String) -> String {
+        switch description.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+        case "the internet connection appears to be offline.":
+            return text(.internetConnectionOffline)
+        default:
+            return description
+        }
     }
 
     func codexMenuBarMetricLabel(_ metric: CodexMenuBarMetric) -> String {
@@ -310,6 +320,7 @@ struct Localizer {
             .signOut: "Sign out",
             .noGitHubCopilotSessionFound: "No GitHub session cookies were found yet.",
             .noCodexSessionFound: "No ChatGPT session cookies were found yet.",
+            .internetConnectionOffline: "The internet connection appears to be offline.",
         ]
     }
 
@@ -423,6 +434,7 @@ struct Localizer {
             .signOut: "Wyloguj się",
             .noGitHubCopilotSessionFound: "Nie znaleziono jeszcze ciasteczek sesji GitHub.",
             .noCodexSessionFound: "Nie znaleziono jeszcze ciasteczek sesji ChatGPT.",
+            .internetConnectionOffline: "Wygląda na to, że połączenie z internetem jest offline.",
         ]
     }
 }
