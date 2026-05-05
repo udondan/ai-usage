@@ -100,6 +100,7 @@ extension TranslationCatalog {
             .appVersion: "Wersja",
             .projectSection: "Projekt",
             .projectRepository: "Repozytorium GitHub",
+            .sponsor: "Wesprzyj",
             .reportIssue: "Zgłoś problem",
             .legalSection: "Informacje prawne",
             .logoDisclaimer: "Logo OpenAI, logo Claude i logo GitHub Copilot są używane wyłącznie w celu identyfikacji odpowiednich usług. Wszystkie znaki towarowe, znaki usługowe i logo należą do ich właścicieli. Ta aplikacja jest niezależna i nie jest powiązana z OpenAI, Anthropic ani GitHub, ani przez nie sponsorowana lub rekomendowana.",

@@ -3,6 +3,7 @@ import AppKit
 
 struct SettingsView: View {
     private let projectURL = URL(string: "https://github.com/wojtekmaj/ai-usage")!
+    private let sponsorURL = URL(string: "https://github.com/wojtekmaj/ai-usage?sponsor=1")!
     private let reportIssueURL = URL(string: "https://github.com/wojtekmaj/ai-usage/issues/new")!
 
     @ObservedObject var environment: AppEnvironment
@@ -353,6 +354,10 @@ struct SettingsView: View {
                 .font(.headline)
 
             Link(environment.localizer.text(.projectRepository), destination: projectURL)
+
+            Button(environment.localizer.text(.sponsor)) {
+                NSWorkspace.shared.open(sponsorURL)
+            }
 
             Button(environment.localizer.text(.reportIssue)) {
                 NSWorkspace.shared.open(reportIssueURL)

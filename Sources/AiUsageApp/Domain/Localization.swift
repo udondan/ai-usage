@@ -100,6 +100,7 @@ enum L10nKey: String, CaseIterable {
     case appVersion
     case projectSection
     case projectRepository
+    case sponsor
     case reportIssue
     case legalSection
     case logoDisclaimer
