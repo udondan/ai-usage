@@ -3,14 +3,33 @@ import Testing
 
 struct LocalizationTests {
     @Test
-    func allSupportedLanguagesHaveCopyForEveryKey() {
+    func allSupportedLanguagesHaveTheSameKeys() {
+        let expectedKeys = Set(TranslationCatalog.english.keys)
+
+        for language in AppLanguage.allCases {
+            let translationKeys = Set(TranslationCatalog.translations(for: language).keys)
+
+            #expect(missingKeys(in: translationKeys, expectedKeys: expectedKeys).isEmpty)
+            #expect(extraKeys(in: translationKeys, expectedKeys: expectedKeys).isEmpty)
+        }
+    }
+
+    @Test
+    func allLocalizationKeysHaveCopy() {
         let expectedKeys = Set(L10nKey.allCases)
 
         for language in AppLanguage.allCases {
             let translationKeys = Set(TranslationCatalog.translations(for: language).keys)
-            let localizer = Localizer(language: language)
 
-            #expect(translationKeys == expectedKeys)
+            #expect(missingKeys(in: translationKeys, expectedKeys: expectedKeys).isEmpty)
+            #expect(extraKeys(in: translationKeys, expectedKeys: expectedKeys).isEmpty)
+        }
+    }
+
+    @Test
+    func allSupportedLanguagesHaveNonEmptyCopy() {
+        for language in AppLanguage.allCases {
+            let localizer = Localizer(language: language)
 
             for key in L10nKey.allCases {
                 let text = localizer.text(key)
@@ -19,6 +38,20 @@ struct LocalizationTests {
                 #expect(text != key.rawValue)
             }
         }
+    }
+
+    private func missingKeys(in actualKeys: Set<L10nKey>, expectedKeys: Set<L10nKey>) -> [String] {
+        expectedKeys
+            .subtracting(actualKeys)
+            .map(\.rawValue)
+            .sorted()
+    }
+
+    private func extraKeys(in actualKeys: Set<L10nKey>, expectedKeys: Set<L10nKey>) -> [String] {
+        actualKeys
+            .subtracting(expectedKeys)
+            .map(\.rawValue)
+            .sorted()
     }
 
     @Test
