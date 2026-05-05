@@ -2,8 +2,6 @@
 
 Native macOS menu bar app for tracking remaining Claude, Codex, and GitHub Copilot usage.
 
-`AI Usage` is the user-facing app name. `AiUsageApp` is the Swift package, executable target, and Xcode scheme name.
-
 <img src="screenshot-button.png" width="182" height="27" alt="Screenshot of the AI Usage App menu bar item showing Claude, Codex, and Copilot percentages" />
 
 <img src="screenshot.png" width="492" height="885" alt="Screenshot of the AI Usage App popover showing Claude, Codex, and GitHub Copilot usage cards" />
