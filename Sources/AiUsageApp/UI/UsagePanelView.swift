@@ -80,7 +80,7 @@ struct UsagePanelView: View {
     private func providerSection(provider: ProviderID, metrics: [UsageMetricKind], referenceDate: Date) -> some View {
         let snapshot = environment.snapshot(for: provider)
         let visibleMetrics = metrics.filter { kind in
-            guard let metric = snapshot?.metric(kind) else { return true }
+            guard let metric = snapshot?.metric(kind) else { return false }
             return metric.remainingFraction != nil || metric.remainingValue != nil
         }
 
