@@ -247,12 +247,6 @@ enum ClaudeMenuBarMetric: String, Codable, CaseIterable, Identifiable, Hashable,
         }
     }
 
-    var fallback: ClaudeMenuBarMetric {
-        switch self {
-        case .weekly: return .fiveHour
-        case .fiveHour: return .weekly
-        }
-    }
 }
 
 enum UsagePanelBackgroundStyle: String, Codable, CaseIterable, Identifiable, Hashable, Sendable {
