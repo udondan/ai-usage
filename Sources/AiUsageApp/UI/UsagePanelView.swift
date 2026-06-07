@@ -256,7 +256,8 @@ struct UsagePanelView: View {
     }
 
     private func shouldShowMetrics(for snapshot: ProviderSnapshot?) -> Bool {
-        snapshot?.fetchState != .missingAuth
+        guard let snapshot else { return false }
+        return snapshot.fetchState != .missingAuth
     }
 
     private var resetDateFormatter: ResetDateTextFormatter {
