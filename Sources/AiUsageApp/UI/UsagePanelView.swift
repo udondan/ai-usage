@@ -79,6 +79,10 @@ struct UsagePanelView: View {
 
     private func providerSection(provider: ProviderID, metrics: [UsageMetricKind], referenceDate: Date) -> some View {
         let snapshot = environment.snapshot(for: provider)
+        let visibleMetrics = metrics.filter { kind in
+            guard let metric = snapshot?.metric(kind) else { return true }
+            return metric.remainingFraction != nil || metric.remainingValue != nil
+        }
 
         return VStack(alignment: .leading, spacing: 12) {
             ProviderHeaderView(
@@ -91,7 +95,7 @@ struct UsagePanelView: View {
             providerIssue(provider: provider, snapshot: snapshot)
 
             if shouldShowMetrics(for: snapshot) {
-                ForEach(metrics, id: \.self) { kind in
+                ForEach(visibleMetrics, id: \.self) { kind in
                     metricCard(kind: kind, referenceDate: referenceDate)
                 }
             }
