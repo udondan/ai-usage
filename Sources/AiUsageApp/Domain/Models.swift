@@ -223,6 +223,13 @@ enum CodexMenuBarMetric: String, Codable, CaseIterable, Identifiable, Hashable, 
             return .codexFiveHour
         }
     }
+
+    var fallback: CodexMenuBarMetric {
+        switch self {
+        case .weekly: return .fiveHour
+        case .fiveHour: return .weekly
+        }
+    }
 }
 
 enum ClaudeMenuBarMetric: String, Codable, CaseIterable, Identifiable, Hashable, Sendable {
@@ -237,6 +244,13 @@ enum ClaudeMenuBarMetric: String, Codable, CaseIterable, Identifiable, Hashable,
             return .claudeWeekly
         case .fiveHour:
             return .claudeFiveHour
+        }
+    }
+
+    var fallback: ClaudeMenuBarMetric {
+        switch self {
+        case .weekly: return .fiveHour
+        case .fiveHour: return .weekly
         }
     }
 }

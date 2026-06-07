@@ -8,8 +8,10 @@ enum MenuBarSummaryEvaluator {
         switch provider {
         case .codex:
             return snapshot.metric(preferences.codexMenuBarMetric.usageMetricKind)?.remainingFraction
+                ?? snapshot.metric(preferences.codexMenuBarMetric.fallback.usageMetricKind)?.remainingFraction
         case .claude:
             return snapshot.metric(preferences.claudeMenuBarMetric.usageMetricKind)?.remainingFraction
+                ?? snapshot.metric(preferences.claudeMenuBarMetric.fallback.usageMetricKind)?.remainingFraction
         case .copilot:
             return snapshot.metric(.copilotMonthly)?.remainingFraction
         }
