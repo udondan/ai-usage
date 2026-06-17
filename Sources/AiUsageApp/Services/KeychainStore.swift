@@ -14,7 +14,6 @@ final class KeychainStore {
         let query = baseQuery(account: account) as CFDictionary
         let updateAttributes: [String: Any] = [
             kSecValueData as String: data,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
         ]
 
         var status = SecItemUpdate(query, updateAttributes as CFDictionary)
