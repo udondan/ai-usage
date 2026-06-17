@@ -11,14 +11,19 @@ final class KeychainStore {
     }
 
     func save(data: Data, account: String) throws {
-        let query = baseQuery(account: account)
-        SecItemDelete(query as CFDictionary)
+        let query = baseQuery(account: account) as CFDictionary
+        let updateAttributes: [String: Any] = [
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
+        ]
 
-        var attributes = query
-        attributes[kSecValueData as String] = data
-        attributes[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
-
-        let status = SecItemAdd(attributes as CFDictionary, nil)
+        var status = SecItemUpdate(query, updateAttributes as CFDictionary)
+        if status == errSecItemNotFound {
+            var newItem = baseQuery(account: account)
+            newItem[kSecValueData as String] = data
+            newItem[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+            status = SecItemAdd(newItem as CFDictionary, nil)
+        }
         guard status == errSecSuccess else {
             throw KeychainError.unexpectedStatus(status)
         }
